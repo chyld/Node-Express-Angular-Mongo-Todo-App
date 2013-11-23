@@ -1,0 +1,27 @@
+p(ng-hide="isValid") There were errors. Please fix!
+
+form.pure-form(name="todoForm")
+  fieldset
+    input(focus type="text", ng-model="todo.title", required ng-trim="true", placeholder="Go to gym")
+    input(type="text", ng-model="todo.category", required ng-trim="true", placeholder="Exercise")
+    input(type="text", ng-model="todo.dueDate", required ng-trim="true", placeholder="03/07/2013")
+    button.pure-button.pure-button-add.pure-button-small(ng-click="save()") Add
+
+form.pure-form
+  input(ng-model="todoSearch", type="text", placeholder="Todo Search")
+
+table#todos.pure-table.pure-table-striped
+  thead
+    tr
+      th Title
+      th Category
+      th Due Date
+      th Is Complete
+      th Delete
+  tbody
+    tr(ng-repeat="todo in todos | filter:todoSearch")
+      td {{todo.title}}
+      td {{todo.category}}
+      td {{todo.dueDate | date:'EEEE, MMMM dd, yyyy'}}
+      td: input(type="checkbox", ng-click="complete(todo)", ng-model="todo.isComplete")
+      td: button.pure-button.pure-button-error.pure-button-xsmall(ng-click="destroy(todo)") x
